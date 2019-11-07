@@ -13,32 +13,67 @@ import './App.css';
 const data = [
 
     {
-      exercise: "SCRUM",
       name: "Evelyn",
-      ratingDifficulty: 3,
-      ratingJoy: 4
+      assignment: "SCRUM",
+      toughRating: 3,
+      joyRating: 4
     },
     {
-      exercise: "W1D1-1",
       name: "Evelyn",
-      ratingDifficulty: 5,
-      ratingJoy: 3
+      assignment: "W1D1-1",
+      toughRating: 5,
+      joyRating: 3
     },
     {
-      exercise: "SCRUM",
       name: "Hero",
-      ratingDifficulty: 1,
-     ratingJoy: 5
+      assignment: "SCRUM",
+      toughRating: 1,
+      joyRating: 5
     },
-    {
-      exercise: "W1D2-2",
+    {      
       name: "Hero",
-      ratingDifficulty: 1,
-     ratingJoy: 4
+      assignment: "W1D2-2",
+      toughRating: 1,
+     joyRating: 4
     }
 
 ];
  
+const allStudentNames = data.map ((item) => {
+  return item.name
+})
+console.log(allStudentNames)
+
+const allAssignments= data.map((item)=>{
+  return item.assignment
+})
+console.log(allAssignments)
+
+const allJoyRatings= data.map((item ) => {
+  return item.joyRating
+})
+console.log(allJoyRatings)
+
+const allToughRatings= data.map((item) => {
+  return item.toughRating
+})
+console.log(allToughRatings)
+
+
+//aparte opdracht en leukheidsgraad erbij hoe? stap voor stap
+
+const assScrum = data.filter((item) =>{
+  return item.assignment.includes("SCRUM") 
+})
+
+console.log(assScrum) // array met scrum opdrachten (let wel, uit array van 4 studenten)
+
+const joyRateScrum = assScrum.map((item) => {
+  return item.joyRating;
+})
+console.log(joyRateScrum) 
+
+
 
 
 function App() {
@@ -65,9 +100,9 @@ function App() {
       <VictoryBar
               data={data}
               // data accessor for x values
-              x="excercise"
+              x="assignment"
               // data accessor for y values
-              y="ratingJoy"
+              y="joyRating"
 
              
               
