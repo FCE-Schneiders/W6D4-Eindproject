@@ -3409,23 +3409,35 @@ const getAverageJoyRatingForAssignment = (data, assignmentName) => {
     ) / assScrum.length;
   return averageJoyRatingsScrum;
 };
+////////////////////////
 
-const assignments = ["SCRUM", "W1D1-1", "W1D2-1"];
-const averageJoyRatings = assignments.map(assignment => {
+const allUniqueAssignmentsNames = data.map(item => {
+  return item.assignment;
+});
+
+const uniqueAssignments = [...new Set(allUniqueAssignmentsNames)];
+
+//console.log("onlyunique : " + uniqueAssignments);
+
+const averageJoyRatings = uniqueAssignments.map(assignment => {
   return getAverageJoyRatingForAssignment(data, assignment);
 });
-console.log(averageJoyRatings);
+//console.log(averageJoyRatings);
 
 const result = getAverageJoyRatingForAssignment(data, "SCRUM");
 
-//opdracht W1D1-1
-const assW1D1_1 = data.filter(item => {
-  return item.assignment.includes("W1D1-1");
-});
-
-//console.log(assW1D1_1) // array met W1D1-1 opdrachten AARGH.. snellere manier? alles in 1?
-
-// Array maken van alle opdrachtnamen next step:
+const resultGrafiek = averageJoyRatings.reduce(function(
+  resultGrafiek,
+  field,
+  index
+) {
+  resultGrafiek["assignment:" + uniqueAssignments[index] + ","] =
+    "joy:" + field;
+  return resultGrafiek;
+},
+{});
+console.log(resultGrafiek);
+console.log(data);
 
 function App() {
   return (
@@ -3436,7 +3448,7 @@ function App() {
           // tickValues specifies both the number of ticks and where
           // they are placed on the axis
           tickValues={[0, 1, 2, 3]}
-          tickFormat={assignments}
+          tickFormat={uniqueAssignments}
         />
 
         <VictoryAxis
